@@ -1,0 +1,13 @@
+{
+  "name": "aws-sls-api-services",
+  "version": "1.0.0",
+  "description": "",
+  "main": "handler.js",
+  "scripts": {
+    "invoke":"sls invoke local -f"
+    
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
