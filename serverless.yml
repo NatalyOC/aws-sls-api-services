@@ -22,6 +22,17 @@ provider:
   region: us-east-1
   environment:
     tableName: ${self:custom.tableName}
+  iamRoleStatements:
+   - Effect: "Allow"
+     Action:
+        - dynamodb:DescribeTable
+        - dynamodb:Scan
+        - dynamodb:GetItem
+        - dynamodb:PutItem
+        - dynamodb:UpdateItem
+        - dynamodb:DeleteItem
+     Resource:
+      - "arn:aws:dynamodb:us-east-1:268908934271:table/Films"
 
 
 custom:
