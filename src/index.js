@@ -10,6 +10,6 @@ const app = express();
 
 app.use(cors());
 app.use(bodyParser.json());
-app.use('/planet', planetRoutes);
+app.use('/planets', planetRoutes);
 
 module.exports = app;
