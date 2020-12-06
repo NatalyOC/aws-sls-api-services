@@ -8,7 +8,7 @@ const routes = express.Router({
     mergeParams: true
 });
 
-routes.route('/findById/:id')
+routes.route('/:id')
   .get(planetsCtrl.findById);
 
 

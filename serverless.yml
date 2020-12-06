@@ -22,15 +22,31 @@ provider:
   region: us-east-1
 
 
+custom:
+    tableName: Films
+
 functions:
   app-api-sls:
     handler: handler.handler
     events:
      - http:
-         path: /
-         method: get
-         cors: true
-     - http:
          path: /{proxy+}
          method: any
          cors: true
+
+
+resources:
+  Resources:
+    FilmsTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        AttributeDefinitions:
+        - AttributeName: "id"
+          AttributeType: "S"
+        KeySchema:
+        - AttributeName: "id"
+          KeyType: "HASH"
+        ProvisionedThroughput:
+          ReadCapacityUnits: 1
+          WriteCapacityUnits: 1
+        TableName: ${self:custom.tableName}

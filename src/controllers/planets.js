@@ -1,7 +1,5 @@
 const fetch = require('node-fetch');
 
-
-
 exports.findById=function(req,res){
     let parameter=req.params.id;
     console.log(parameter)
@@ -31,3 +29,4 @@ exports.findById=function(req,res){
     });
     
 };
+
