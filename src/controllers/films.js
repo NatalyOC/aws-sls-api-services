@@ -46,7 +46,6 @@ exports.createFilm = (event, context, callback) => {
   }
 
   const film = {
-    id: uuid(),
     titulo: reqBody.title,
     descripcion: reqBody.body
   };
