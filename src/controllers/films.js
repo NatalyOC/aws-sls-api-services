@@ -2,7 +2,7 @@ const AWS = require('aws-sdk');
 const db = new AWS.DynamoDB.DocumentClient({ apiVersion: '2020-12-06' });
 
 const filmsTable = process.env.tableName;
-// Create a response
+// Crear un response
 function response(statusCode, message) {
   return {
     statusCode: statusCode,
