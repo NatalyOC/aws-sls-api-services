@@ -1,13 +1,9 @@
 const express = require('express');
 const filmsCtrl = require('../controllers/films');
 
-const routes = express.Router({
-    mergeParams: true
-});
-routes.route('/findAllFilms')
-  .get(filmsCtrl.getAllFilms);             
-
-routes.route('/create')
+const routes = express.Router();
+routes.route('/')
+  .get(filmsCtrl.getAllFilms)            
   .post(filmsCtrl.createFilm);
 
 module.exports = {

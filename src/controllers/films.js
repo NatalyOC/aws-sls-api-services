@@ -2,6 +2,7 @@ const AWS = require('aws-sdk');
 const db = new AWS.DynamoDB.DocumentClient({ apiVersion: '2020-12-06' });
 
 const filmsTable = process.env.tableName;
+console.log(filmsTable);
 // Crear un response
 function response(statusCode, message) {
   return {
@@ -15,49 +16,23 @@ function sortByDate(a, b) {
   } else return 1;
 };
 //consultando data
-exports.getAllFilms = (event, context, callback) => {
-  return db
-    .scan({
-      TableName: filmsTable
-    })
-    .promise()
-    .then((res) => {
-      callback(null, response(200, res.Items.sort(sortByDate)));
-    })
-    .catch((err) => callback(null, response(err.statusCode, err)));
+exports.getAllFilms = async event=>{
+  var film= await db.scan({
+    TableName: filmsTable,
+  }).promise()
+  return{statusCode:200,body:JSON.stringify(film)};
 };
 
 //insertando data
-exports.createFilm = (event, context, callback) => {
-  const reqBody = JSON.parse(event.body);
-
-  if (
-    !reqBody.title ||
-    reqBody.title.trim() === '' ||
-    !reqBody.body ||
-    reqBody.body.trim() === ''
-  ) {
-    return callback(
-      null,
-      response(400, {
-        error: 'Post must have a title and body and they must not be empty'
-      })
-    );
-  }
-
-  const film = {
-    titulo: reqBody.title,
-    descripcion: reqBody.body
+exports.createFilm=async event=>{
+  var film = {
+    id:event.id,
+    titulo: event.titulo,
+    descripcion: event.descripcion
   };
-
-  return db
-    .put({
+  await db.put({
       TableName: filmsTable,
       Item: film
-    })
-    .promise()
-    .then(() => {
-      callback(null, response(201, film));
-    })
-    .catch((err) => response(null, response(err.statusCode, err)));
+  }).promise()
+  return {statusCode:200,body:JSON.stringify(film)};
 };
