@@ -3,18 +3,7 @@ const db = new AWS.DynamoDB.DocumentClient({ apiVersion: '2020-12-06' });
 
 const filmsTable = process.env.tableName;
 console.log(filmsTable);
-// Crear un response
-function response(statusCode, message) {
-  return {
-    statusCode: statusCode,
-    body: JSON.stringify(message)
-  };
-};
-function sortByDate(a, b) {
-  if (a.createdAt > b.createdAt) {
-    return -1;
-  } else return 1;
-};
+
 //consultando data
 exports.getAllFilms = async event=>{
   var film= await db.scan({
