@@ -20,6 +20,8 @@ provider:
   stage: dev
   profile: aws-deploy
   region: us-east-1
+  environment:
+    tableName: ${self:custom.tableName}
 
 
 custom:
